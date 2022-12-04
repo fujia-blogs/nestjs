@@ -21,6 +21,7 @@ import { Response } from 'express';
 import { HttpExceptionFilter } from '@/exceptions/http-exception.filter';
 import { JoiValidationPipe } from '@/pipes/joi-validation.pipe';
 import { ValidationPipe } from '@/pipes/validation.pipe';
+import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -73,5 +74,10 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+
+  @Post('list')
+  createManyUsers(@Body() users: User[]) {
+    return this.userService.createMany(users);
   }
 }
